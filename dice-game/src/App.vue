@@ -6,7 +6,7 @@
 
 <script>
 import HelloWorld from './components/HelloWorld'
-import DiceGameView from "./components/DiceGameView";
+import DiceGameView from "./components/DiceGameView"
 
 export default {
   name: 'App',
@@ -20,6 +20,7 @@ export default {
 <style>
 #app {
   /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
+  font-family: 'Optima', 'Papyrus';
   /*-webkit-font-smoothing: antialiased;*/
   /*-moz-osx-font-smoothing: grayscale;*/
   /*text-align: center;*/

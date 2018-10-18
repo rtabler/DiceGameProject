@@ -1,12 +1,12 @@
 <template>
-  <table>
+  <table v-bind:class="{scoreboard:true}">
     <tr>
-      <th></th>
-      <th v-for="playerName in playerNames">{{ playerName }}</th>
+      <th v-bind:class="{roundCell:true}">Scores</th>
+      <th v-for="playerName in playerNames" v-bind:class="{playerCell:true}">{{ playerName }}</th>
     </tr>
     <tr v-for="(thisRoundScores,index) in scores">
-      <td>Round {{index+1}}</td>
-      <td v-for="playerScore in thisRoundScores">{{ playerScore }}</td>
+      <th v-bind:class="{roundCell:true}">Round {{index+1}}</th>
+      <td v-for="playerScore in thisRoundScores" v-bind:class="{playerCell:true}">{{ playerScore }}</td>
     </tr>
   </table>
 </template>
@@ -32,5 +32,20 @@
 </script>
 
 <style scoped>
-
+table {
+  text-align: center;
+  border: 1px solid black;
+  border-spacing: 0px;
+}
+td {
+  margin: 0px;
+}
+.roundCell {
+  width: 80px;
+}
+.playerCell {
+  width: 40px;
+  border-left: 1px solid black;
+  /*border-top: 1px solid black;*/
+}
 </style>

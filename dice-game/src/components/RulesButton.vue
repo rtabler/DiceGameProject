@@ -1,5 +1,5 @@
 <template>
-  <button>Game Rules</button>
+  <button v-bind:class="{rulesButton:true}">Game Rules</button>
 </template>
 
 <script>
@@ -9,5 +9,7 @@
 </script>
 
 <style scoped>
-
+.rulesButton {
+  width: 100px;
+}
 </style>

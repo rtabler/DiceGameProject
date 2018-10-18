@@ -1,9 +1,12 @@
 <template>
-  <div>
-    <RoundDisplay :round-number="this.currentRound" :total-rounds="this.totalRounds"></RoundDisplay>
-    <Scoreboard :game-scores="this.gameScores" :players="this.gamePlayers"></Scoreboard>
-    <RulesButton></RulesButton>
-    <PlayBox></PlayBox>
+  <div v-bind:class="{gameInterface:true}">
+    <div v-bind:class="{topBar:true}">
+      <RoundDisplay :round-number="this.currentRound" :total-rounds="this.totalRounds"></RoundDisplay>
+      <Scoreboard :game-scores="this.gameScores" :players="this.gamePlayers"></Scoreboard>
+      <RulesButton></RulesButton>
+    </div>
+    <br>
+    <PlayBox :current-player-name="currentPlayerName" :dice-data="diceData" :click-die="clickDie" :click-main-button="clickMainButton" class="playBoxComponent"></PlayBox>
   </div>
 
 </template>
@@ -37,11 +40,40 @@
             gamePlayers: function() {
                 if ( this.game === null ) { return []; }
                 return this.game.playerNames;
+            },
+            currentPlayerName: function() {
+                return this.game.playerNames[ this.game.currentPlayer ];
+            },
+            diceData: function() {
+                // console.log("Check this dice");
+                // console.log(this.game.dice);
+                return this.game.diceData;
+            }
+        },
+        methods: {
+            clickDie: function( dieIndex ) {
+                this.game.clickDie( dieIndex );
+            },
+            clickMainButton: function() {
+                this.game.clickMainButton();
             }
         }
     }
 </script>
 
 <style scoped>
-
+.gameInterface {
+  text-align: left;
+}
+.topBar {
+  /*color: red;*/
+  display: flex;
+  justify-content: space-between;
+  max-width: 600px;
+  margin: auto;
+}
+.playBoxComponent {
+  display: block;
+  margin: auto;
+}
 </style>
