@@ -2,7 +2,7 @@
   <div v-bind:class="{gameInterface:true}">
     <div v-bind:class="{topBar:true}">
       <RoundDisplay :round-number="this.currentRound" :total-rounds="this.totalRounds"></RoundDisplay>
-      <Scoreboard :game-scores="this.gameScores" :players="this.gamePlayers"></Scoreboard>
+      <Scoreboard :players="this.gamePlayers" :game-scores="this.gameScores" :game-totals="this.game.totals"></Scoreboard>
       <RulesButton :click-rules-button="this.clickRulesButton"></RulesButton>
     </div>
     <br>

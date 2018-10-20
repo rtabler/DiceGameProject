@@ -41,6 +41,9 @@ class GameModel {
       this.scores.push( roundScores );
     }
 
+    // player totals
+    this.totals = new Array( numPlayers ).fill( 0 );
+
   }
   _diceAreNotYetRolled() {
     if ( this.diceData.length <= 0 ) { return false; }
@@ -118,12 +121,12 @@ class GameModel {
     updatedScores[ this.currentRound ][ this.currentPlayer ] = tallyScores;
     this.scores = updatedScores;
 
-    console.log("Starting player: "+this.startingPlayer);
+    let updatedTotals = this.totals.slice();
+    updatedTotals[ this.currentPlayer ] += tallyScores;
+    this.totals = updatedTotals;
 
     this.currentPlayer = ( this.currentPlayer + 1 ) % this.numPlayers;
     if ( this.currentPlayer === this.startingPlayer ) {
-
-      console.log("Incrementing round");
 
       if ( this.currentRound + 1 < this.numRounds ) {
         this.currentRound++;

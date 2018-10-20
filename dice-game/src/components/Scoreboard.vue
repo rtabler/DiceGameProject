@@ -8,24 +8,28 @@
       <th v-bind:class="{roundCell:true}">Round {{index+1}}</th>
       <td v-for="playerScore in thisRoundScores" v-bind:class="{playerCell:true}">{{ playerScore }}</td>
     </tr>
+    <tr>
+      <th>Total</th>
+      <th v-for="playerTotal in this.gameTotals">{{ playerTotal }}</th>
+    </tr>
   </table>
 </template>
 
 <script>
     export default {
         name: "Scoreboard",
-        props: [ "gameScores", "players" ],
+        props: [ "players", "gameScores", "gameTotals" ],
         data: function() {
             return {
                 // scores: [1,2,3]
             }
         },
         computed: {
-            scores: function() {
-                return this.gameScores;
-            },
             playerNames: function() {
                 return this.players;
+            },
+            scores: function() {
+                return this.gameScores;
             }
         }
     }
