@@ -9,7 +9,7 @@
       <Die v-for="(dieData,dieIndex) in diceData" :clickDie="clickDie" :die-data="dieData" :die-index="dieIndex"></Die>
     </div>
     <p>
-      <button v-on:click="clickMainButton()" v-bind:class="{mainButton:true}">{{buttonText}}</button>
+      <button v-on:click="clickMainButton()" v-bind:class="{mainButton:true, mainButtonClickable:mainButtonClickable, mainButtonDisabled:!mainButtonClickable}" v-bind:disabled="!mainButtonClickable">{{buttonText}}</button>
     </p>
   </div>
 </template>
@@ -19,35 +19,42 @@
     import DieState from "../DieState"
     export default {
         name: "PlayBox",
-        props: [ "gameOver", "winners", "playerNames", "currentPlayer", "diceData", "clickDie", "clickMainButton" ],
+        props: [ "gameOver", "winners", "winningScore", "playerNames", "currentPlayer", "diceData", "clickDie", "clickMainButton" ],
         components: {Die},
         data: function() {
-              return {
-              }
+            return {
+                mainButtonClickable: true
+            }
         },
         computed: {
             winnersString: function() {
+                let winnerStr = "";
                 if ( this.winners.length <= 0 ) {
                     return "No one wins!";
                 } else if ( this.winners.length === 1 ) {
-                    return this.playerNames[ this.winners[0] ]+" wins!";
+                    winnerStr += this.playerNames[ this.winners[0] ]+" wins";
                 } else if ( this.winners.length === 2 ) {
-                    return this.playerNames[ this.winners[0] ]+" and "+this.playerNames[ this.winners[1] ]+" win!";
+                  winnerStr += this.playerNames[ this.winners[0] ]+" and "+this.playerNames[ this.winners[1] ]+" win";
                 } else {
                     let winnersStr = "";
                     for ( let i=0; i<this.winners.length-1; i++ ) {
                         winnersStr += this.playerNames[ this.winners[i] ]+", ";
                     }
-                    winnersStr += "and "+this.playerNames[ this.winners[this.winners.length-1] ]+" win!";
-                    return winnersStr;
+                    winnersStr += "and "+this.playerNames[ this.winners[this.winners.length-1] ]+" win";
+                    winnerStr += winnersStr;
                 }
+                winnerStr += ", with the lowest score of "+this.winningScore+".";
+                return winnerStr;
             },
             buttonText: function() {
                 let notYetRolled = false;
                 let numToKeep = 0;
                 let numToRoll = 0;
                 let numLocked = 0;
-                if ( this.gameOver ) { return "New game"; }
+                if ( this.gameOver ) {
+                    this.mainButtonClickable = true;
+                    return "New game";
+                }
                 for ( let i=0; i<this.diceData.length; i++ ) {
                     let dieState = this.diceData[i].dieState;
                     if ( dieState === DieState.notYetRolled ) {
@@ -61,10 +68,22 @@
                         numLocked++;
                     }
                 }
-                if ( notYetRolled ) { return "Roll all dice"; }
-                if ( numLocked === this.diceData.length ) { return "Next turn"; }
-                if ( numToKeep < 1 ) { return "Please choose at least 1 die to keep." }
-                if ( numToKeep === this.diceData.length ) { return "Keep all "+this.diceData.length+" dice"; }
+                if ( notYetRolled ) {
+                    this.mainButtonClickable = true;
+                    return "Roll all dice";
+                }
+                if ( numLocked === this.diceData.length ) {
+                    this.mainButtonClickable = true;
+                    return "Next turn";
+                }
+                if ( numToKeep < 1 ) {
+                    this.mainButtonClickable = false;
+                    return "Please choose at least 1 die to keep." }
+                if ( numToKeep === this.diceData.length ) {
+                    this.mainButtonClickable = true;
+                    return "Keep all "+this.diceData.length+" dice";
+                }
+                this.mainButtonClickable = true;
                 return "Keep "+numToKeep+" dice, re-roll "+(numToRoll)+" dice";
             }
         },
@@ -84,5 +103,11 @@
   width: 300px;
   height: 50px;
   font-size: 1em;
+}
+.mainButtonClickable {
+  /*background-color: #42b983;*/
+}
+.mainButtonDisabled {
+  /*background-color: coral;*/
 }
 </style>

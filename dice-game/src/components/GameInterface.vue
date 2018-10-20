@@ -5,7 +5,7 @@
       <Scoreboard :players="this.gamePlayers" :game-scores="this.gameScores" :game-totals="this.game.totals" v-bind:class="{topBarItem:true}"></Scoreboard>
       <RulesButton :click-rules-button="this.clickRulesButton" v-bind:class="{topBarItem:true}"></RulesButton>
     </div>
-    <PlayBox :game-over="game.gameOver" :winners="game.winners" :player-names="game.playerNames" :current-player="game.currentPlayer" :dice-data="diceData" :click-die="clickDie" :click-main-button="clickMainButton" class="playBoxComponent gameInterfaceBlock"></PlayBox>
+    <PlayBox :game-over="game.gameOver" :winners="game.winners" :winning-score="game.winningScore" :player-names="game.playerNames" :current-player="game.currentPlayer" :dice-data="diceData" :click-die="clickDie" :click-main-button="clickMainButton" class="playBoxComponent gameInterfaceBlock"></PlayBox>
   </div>
 
 </template>

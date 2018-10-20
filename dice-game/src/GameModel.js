@@ -6,6 +6,7 @@ class GameModel {
   constructor( numPlayers, numRounds, numDice ) {
     // game over state data
     this.gameOver = false;
+    this.winningScore = -1;
     this.winners = [];
 
     // game settings
@@ -111,6 +112,7 @@ class GameModel {
         winners.push( i );
       }
     }
+    this.winningScore = winningScore;
     this.winners = winners;
     this.diceData = new DiceData( this.numDice );
   }
