@@ -76,10 +76,9 @@
   margin-bottom: 20px;
 }
 .topBar {
-  /*color: red;*/
   display: flex;
   justify-content: center;
-  /*max-width: 600px;*/
+  align-items: center;
   margin-left: auto;
   margin-right: auto;
 }

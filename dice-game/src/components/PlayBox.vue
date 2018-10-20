@@ -27,7 +27,6 @@
         },
         computed: {
             winnersString: function() {
-                // console.log("comp winnerstring");
                 if ( this.winners.length <= 0 ) {
                     return "No one wins!";
                 } else if ( this.winners.length === 1 ) {

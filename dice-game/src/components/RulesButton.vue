@@ -14,5 +14,7 @@
 <style scoped>
 .rulesButton {
   width: 100px;
+  height: 100px;
+  border-radius: 25px;
 }
 </style>

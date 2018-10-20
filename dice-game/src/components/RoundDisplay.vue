@@ -19,15 +19,11 @@
 
 <style scoped>
 .roundDisplay {
-  /*color: red;*/
-  /*position: absolute;*/
   display: inline-block;
   border-style: solid;
-  border-radius: 100px;
+  border-radius: 30px;
   width: 100px;
   height: 100px;
-
-  /*margin: 0px;*/
   text-align: center;
 }
 </style>

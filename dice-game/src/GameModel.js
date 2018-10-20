@@ -43,8 +43,9 @@ class GameModel {
 
     // player totals
     this.totals = new Array( numPlayers ).fill( 0 );
-
   }
+
+  // convenience functions for checking model
   _diceAreNotYetRolled() {
     if ( this.diceData.length <= 0 ) { return false; }
     return this.diceData[0].dieState === DieState.notYetRolled;
@@ -67,6 +68,8 @@ class GameModel {
     }
     return numLockedDice;
   }
+
+  // convenience functions for editing model
   _lockAllDice() {
     for ( let i=0; i<this.diceData.length; i++ ) {
       this.diceData[i].dieState = DieState.locked;
@@ -139,6 +142,8 @@ class GameModel {
 
     this.diceData = new DiceData( this.numDice );
   }
+
+  // public functions to be called by the view / controller
   clickDie( dieClickedOn ) {
     let dieData = this.diceData[ dieClickedOn ];
     if ( dieData.dieState === DieState.unlocked ) {

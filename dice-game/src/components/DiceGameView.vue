@@ -1,6 +1,5 @@
 <template>
   <div v-bind:style="{ backgroundColor: 'orange', border: '0.1px solid rgba(0,0,0,0)', height: '100vh', position: 'relative' }">
-    <!--<div v-bind:class="{overlayPanelArea:true}" v-show="showPanel">-->
     <div v-if="overlay" v-on:click="clickOffPanel" v-bind:class="{overlayItem:true, overlayPanelArea:true}">
       <div v-if="overlay" v-on:click="e => e.stopImmediatePropagation()" v-bind:class="{overlayPanel:true, rulesText:true}">
         <h2 v-bind:style="{ textAlign: 'center' }">Dice Game rules:</h2>
@@ -15,9 +14,7 @@
         </ul>
       </div>
     </div>
-    <!--</div>-->
     <div v-if="overlay" v-bind:class="{overlayItem:true, overlayShadow:true}">
-      <!--<div v-bind:class="{overlayPanel:true}">Hi</div>-->
     </div>
     <Title></Title>
     <StartScreen v-if="( this.game === null )" :defaults="gameSettingsDefaults" :new-game="this.createNewDiceGame"></StartScreen>

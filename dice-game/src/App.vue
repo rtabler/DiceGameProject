@@ -32,14 +32,9 @@ body {
   overflow: hidden;
 }
 #app {
-  /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
-  font-family: 'Optima', 'Papyrus';
-  /*-webkit-font-smoothing: antialiased;*/
-  /*-moz-osx-font-smoothing: grayscale;*/
-  /*text-align: center;*/
+  font-family: 'Optima', sans-serif;
   background-color: #2c3e50;
-  /*margin-top: 60px;*/
-  text-align: center;
   margin: 0px;
+  text-align: center;
 }
 </style>
