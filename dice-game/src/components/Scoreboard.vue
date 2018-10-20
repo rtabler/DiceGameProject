@@ -21,7 +21,6 @@
         props: [ "players", "gameScores", "gameTotals" ],
         data: function() {
             return {
-                // scores: [1,2,3]
             }
         },
         computed: {

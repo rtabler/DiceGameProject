@@ -1,12 +1,11 @@
 <template>
   <div v-bind:class="{gameInterface:true}">
-    <div v-bind:class="{topBar:true}">
-      <RoundDisplay :round-number="this.currentRound" :total-rounds="this.totalRounds"></RoundDisplay>
-      <Scoreboard :players="this.gamePlayers" :game-scores="this.gameScores" :game-totals="this.game.totals"></Scoreboard>
-      <RulesButton :click-rules-button="this.clickRulesButton"></RulesButton>
+    <div v-bind:class="{topBar:true, gameInterfaceBlock:true}">
+      <RoundDisplay :round-number="this.currentRound" :total-rounds="this.totalRounds" v-bind:class="{topBarItem:true}"></RoundDisplay>
+      <Scoreboard :players="this.gamePlayers" :game-scores="this.gameScores" :game-totals="this.game.totals" v-bind:class="{topBarItem:true}"></Scoreboard>
+      <RulesButton :click-rules-button="this.clickRulesButton" v-bind:class="{topBarItem:true}"></RulesButton>
     </div>
-    <br>
-    <PlayBox :game-over="game.gameOver" :winners="game.winners" :player-names="game.playerNames" :current-player="game.currentPlayer" :dice-data="diceData" :click-die="clickDie" :click-main-button="clickMainButton" class="playBoxComponent"></PlayBox>
+    <PlayBox :game-over="game.gameOver" :winners="game.winners" :player-names="game.playerNames" :current-player="game.currentPlayer" :dice-data="diceData" :click-die="clickDie" :click-main-button="clickMainButton" class="playBoxComponent gameInterfaceBlock"></PlayBox>
   </div>
 
 </template>
@@ -72,15 +71,25 @@
   text-align: center;
   position: relative;
 }
+.gameInterfaceBlock {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .topBar {
   /*color: red;*/
   display: flex;
-  justify-content: space-between;
-  max-width: 600px;
-  margin: auto;
+  justify-content: center;
+  /*max-width: 600px;*/
+  margin-left: auto;
+  margin-right: auto;
+}
+.topBarItem {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .playBoxComponent {
   display: block;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
