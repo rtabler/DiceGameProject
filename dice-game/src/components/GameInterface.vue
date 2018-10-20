@@ -3,10 +3,10 @@
     <div v-bind:class="{topBar:true}">
       <RoundDisplay :round-number="this.currentRound" :total-rounds="this.totalRounds"></RoundDisplay>
       <Scoreboard :game-scores="this.gameScores" :players="this.gamePlayers"></Scoreboard>
-      <RulesButton></RulesButton>
+      <RulesButton :click-rules-button="this.clickRulesButton"></RulesButton>
     </div>
     <br>
-    <PlayBox :current-player-name="currentPlayerName" :dice-data="diceData" :click-die="clickDie" :click-main-button="clickMainButton" class="playBoxComponent"></PlayBox>
+    <PlayBox :game-over="game.gameOver" :winners="game.winners" :player-names="game.playerNames" :current-player="game.currentPlayer" :dice-data="diceData" :click-die="clickDie" :click-main-button="clickMainButton" class="playBoxComponent"></PlayBox>
   </div>
 
 </template>
@@ -16,12 +16,14 @@
     import Scoreboard from "./Scoreboard";
     import RulesButton from "./RulesButton";
     import PlayBox from "./PlayBox";
+    import GameModel from "../GameModel";
     export default {
         name: "GameInterface",
-        props: [ "game" ],
+        props: [ "setOverlay", "game", "resetGame" ],
         components: {PlayBox, RulesButton, Scoreboard, RoundDisplay},
         data: function() {
             return {
+                showPanel: false
             }
         },
         computed: {
@@ -31,7 +33,7 @@
             },
             totalRounds: function() {
                 if ( this.game === null ) { return -1; }
-                return this.game.rounds;
+                return this.game.numRounds;
             },
             gameScores: function() {
                 if ( this.game === null ) { return []; }
@@ -41,9 +43,6 @@
                 if ( this.game === null ) { return []; }
                 return this.game.playerNames;
             },
-            currentPlayerName: function() {
-                return this.game.playerNames[ this.game.currentPlayer ];
-            },
             diceData: function() {
                 // console.log("Check this dice");
                 // console.log(this.game.dice);
@@ -51,10 +50,17 @@
             }
         },
         methods: {
+            clickRulesButton: function () {
+                this.setOverlay( true );
+                this.showPanel = true;
+            },
             clickDie: function( dieIndex ) {
                 this.game.clickDie( dieIndex );
             },
             clickMainButton: function() {
+                if ( this.game.gameOver ) {
+                    this.resetGame();
+                }
                 this.game.clickMainButton();
             }
         }
@@ -63,7 +69,8 @@
 
 <style scoped>
 .gameInterface {
-  text-align: left;
+  text-align: center;
+  position: relative;
 }
 .topBar {
   /*color: red;*/

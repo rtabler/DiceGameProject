@@ -1,10 +1,13 @@
 <template>
-  <button v-bind:class="{rulesButton:true}">Game Rules</button>
+  <button v-on:click="clickRulesButton()" v-bind:class="{rulesButton:true}">Game Rules</button>
 </template>
 
 <script>
     export default {
-        name: "RulesButton"
+        name: "RulesButton",
+        props: [ "clickRulesButton" ],
+        methods: {
+        }
     }
 </script>
 

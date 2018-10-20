@@ -1,7 +1,7 @@
 <template>
   <div>
     <Subtitle></Subtitle>
-    <StartBox :new-game="this.newGame"></StartBox>
+    <StartBox :defaults="defaults" :new-game="this.newGame"></StartBox>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
     import StartBox from "./StartBox";
     export default {
         name: "StartScreen",
-        props: [ "newGame" ],
+        props: [ "defaults", "newGame" ],
         components: { StartBox, Subtitle }
     }
 </script>
