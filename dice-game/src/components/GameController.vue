@@ -41,8 +41,7 @@ export default {
             game: null,
             gameSettingsDefaults: {
                 numPlayers: 4,
-                numRounds: 4,
-                numDice: 5
+                numRounds: 4
             }
         }
     },

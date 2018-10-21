@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import DiceGameView from "./components/DiceGameView"
+import DiceGameView from "./components/GameController"
 
 export default {
     name: 'App',
