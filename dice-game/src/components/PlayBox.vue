@@ -2,14 +2,19 @@
   <div :class="['playBox']">
     <div v-if="gameOver">
       <h3>Game over!</h3>
-      <p>{{this.winnersString}}</p>
+      <p>{{winnersString(this.winners)}}, with the lowest total score of {{winningScore}}!</p>
+    </div>
+    <div v-else-if="betweenRounds">
+      <h3>{{winnersString(this.roundWinners[this.roundWinners.length-1])}} Round {{currentRound+1-1}}.</h3>
+      <p>{{playerNames[currentPlayer]}} starts the next round.</p>
     </div>
     <div v-else>
-      <h3>{{playerNames[currentPlayer]}}'s turn</h3>
+      <h3>{{playerNames[currentPlayer]}}'s turn:</h3>
       <Die v-for="(dieData,dieIndex) in diceData" :clickDie="clickDie" :die-data="dieData" :die-index="dieIndex"></Die>
     </div>
     <p>
-      <button v-on:click="clickMainButton()" :class="{mainButton:true, mainButtonClickable:mainButtonClickable, mainButtonDisabled:!mainButtonClickable}" :disabled="!mainButtonClickable">{{buttonText}}</button>
+      <button v-on:click="clickMainButton()"
+              :class="['mainButton']" :disabled="!mainButtonClickable">{{buttonText}}</button>
     </p>
   </div>
 </template>
@@ -19,7 +24,8 @@
     import DieState from "../DieState"
     export default {
         name: "PlayBox",
-        props: [ "gameOver", "winners", "winningScore", "playerNames", "currentPlayer", "diceData", "clickDie", "clickMainButton" ],
+        props: [ "gameOver", "winners", "winningScore", "betweenRounds", "roundWinners", "currentRound",
+                "playerNames", "currentPlayer", "diceData", "clickDie", "clickMainButton" ],
         components: {Die},
         data: function() {
             return {
@@ -27,25 +33,6 @@
             }
         },
         computed: {
-            winnersString: function() {
-                let winnerStr = "";
-                if ( this.winners.length <= 0 ) {
-                    return "No one wins!";
-                } else if ( this.winners.length === 1 ) {
-                    winnerStr += this.playerNames[ this.winners[0] ]+" wins";
-                } else if ( this.winners.length === 2 ) {
-                  winnerStr += this.playerNames[ this.winners[0] ]+" and "+this.playerNames[ this.winners[1] ]+" win";
-                } else {
-                    let winnersStr = "";
-                    for ( let i=0; i<this.winners.length-1; i++ ) {
-                        winnersStr += this.playerNames[ this.winners[i] ]+", ";
-                    }
-                    winnersStr += "and "+this.playerNames[ this.winners[this.winners.length-1] ]+" win";
-                    winnerStr += winnersStr;
-                }
-                winnerStr += ", with the lowest score of "+this.winningScore+".";
-                return winnerStr;
-            },
             buttonText: function() {
                 let notYetRolled = false;
                 let numToKeep = 0;
@@ -54,6 +41,9 @@
                 if ( this.gameOver ) {
                     this.mainButtonClickable = true;
                     return "New game";
+                }
+                if ( this.betweenRounds ) {
+                    return "Next round";
                 }
                 for ( let i=0; i<this.diceData.length; i++ ) {
                     let dieState = this.diceData[i].dieState;
@@ -84,17 +74,35 @@
                     return "Keep all "+this.diceData.length+" dice";
                 }
                 this.mainButtonClickable = true;
-                return "Keep "+numToKeep+" dice, re-roll "+(numToRoll)+" dice";
+                return "Keep "+numToKeep+" dice"+(numToRoll>0 ? ", re-roll "+(numToRoll)+" dice" : "");
             }
         },
         methods: {
+            winnersString: function( winnersArray ) {
+                let winnerStr = "";
+                if ( winnersArray.length <= 0 ) {
+                    return "No one wins!";
+                } else if ( winnersArray.length === 1 ) {
+                    winnerStr += this.playerNames[ winnersArray[0] ]+" wins";
+                } else if ( winnersArray.length === 2 ) {
+                    winnerStr += this.playerNames[ winnersArray[0] ]+" and "+this.playerNames[ winnersArray[1] ]+" win";
+                } else {
+                    let winnersStr = "";
+                    for ( let i=0; i<winnersArray.length-1; i++ ) {
+                        winnersStr += this.playerNames[ winnersArray[i] ]+", ";
+                    }
+                    winnersStr += "and "+this.playerNames[ winnersArray[winnersArray.length-1] ]+" win";
+                    winnerStr += winnersStr;
+                }
+                return winnerStr;
+            },
         }
     }
 </script>
 
 <style scoped>
 .playBox {
-  background-color: lightcyan;
+  background-color: #c6e1ff;
   border: 1px solid black;
   text-align: center;
   width: 500px;
@@ -103,11 +111,9 @@
   width: 340px;
   height: 50px;
   font-size: 1em;
+  font-weight: bold;
 }
-.mainButtonClickable {
-  /*background-color: #42b983;*/
-}
-.mainButtonDisabled {
-  /*background-color: coral;*/
+.mainButton:disabled {
+  font-weight: normal;
 }
 </style>

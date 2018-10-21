@@ -91,11 +91,11 @@ export default {
   z-index: 2;
 }
 .overlayPanel {
-  background-color: aliceblue;
+  background-color: #c6e1ff;
   position: relative;
   margin: auto;
   top: 120px;
-  border: 0.1px solid transparent;
+  border: 0.02px solid transparent;
   width: 600px;
 }
 .overlayShadow {

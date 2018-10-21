@@ -26,18 +26,21 @@ export default {
   box-sizing: border-box;
 }
 body {
-  background-color: #ffbe13;
-  margin: 0px;
-  padding: 0px;
+  background-color: #fff3d3;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
 }
-button {
+button, button:disabled {
+  background-color: #fefeff;
+  opacity: 1;
   width: 300px;
   height: 50px;
+  user-select: none;
 }
 #app {
   font-family: 'Optima', sans-serif;
-  margin: 0px;
+  margin: 0;
   text-align: center;
 }
 </style>

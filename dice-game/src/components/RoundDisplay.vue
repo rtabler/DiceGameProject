@@ -21,6 +21,7 @@
 
 <style scoped>
 .roundDisplay {
+  background-color: white;
   display: inline-block;
   border: 2px solid;
   border-radius: 30px;
@@ -28,11 +29,7 @@
   height: 100px;
   user-select: none;
   text-align: center;
-  /*margin: 0px;*/
-}
-.roundDisplay>p {
-  /*margin-top: 12px;*/
-  /*margin-bottom: 12px;*/
+  cursor: default;
 }
 .roundLabel {
   margin-bottom: 0px;

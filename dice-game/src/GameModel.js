@@ -15,6 +15,7 @@ class GameModel {
     this.numDice = numDice;
 
     // game state
+    this.betweenRounds = false;
     this.currentRound = 0;
     this.startingPlayer = Math.floor( numPlayers * Math.random() );
     this.currentPlayer = this.startingPlayer;
@@ -41,6 +42,9 @@ class GameModel {
       }
       this.scores.push( roundScores );
     }
+
+    // round scores
+    this.roundWinners = [];
 
     // player totals
     this.totals = new Array( numPlayers ).fill( 0 );
@@ -92,6 +96,20 @@ class GameModel {
       return dieData;
     });
   }
+  _calculateRoundWinners() {
+      let thisRoundScores = this.scores[ this.currentRound ];
+      let thisRoundWinners = [];
+      let thisRoundWinningScore = this.numPlayers * 6 + 1;
+      thisRoundScores.forEach( function( score, player ){
+          if ( score < thisRoundWinningScore ) {
+              thisRoundWinningScore = score;
+              thisRoundWinners = [ player ];
+          } else if ( score === thisRoundWinningScore ) {
+              thisRoundWinners.push( player );
+          }
+      });
+      this.roundWinners.push( thisRoundWinners );
+  }
   _endGame() {
     this.gameOver = true;
     let playerScoreTotals = new Array( this.numPlayers ).fill( 0 );
@@ -102,7 +120,7 @@ class GameModel {
     });
     console.log(playerScoreTotals);
 
-    let winningScore = 31;
+    let winningScore = this.numRounds * this.numPlayers * 6 + 1;
     let winners = [];
     for ( let i=0; i<this.numPlayers; i++ ) {
       if ( playerScoreTotals[ i ] < winningScore ) {
@@ -133,7 +151,10 @@ class GameModel {
     this.currentPlayer = ( this.currentPlayer + 1 ) % this.numPlayers;
     if ( this.currentPlayer === this.startingPlayer ) {
 
+      this._calculateRoundWinners();
+
       if ( this.currentRound + 1 < this.numRounds ) {
+        this.betweenRounds = true;
         this.currentRound++;
         this.startingPlayer = ( this.startingPlayer + 1 ) % this.numPlayers;
         this.currentPlayer = this.startingPlayer;
@@ -155,6 +176,10 @@ class GameModel {
     }
   }
   clickMainButton() {
+    if ( this.betweenRounds ) {
+      this.betweenRounds = false;
+      return;
+    }
     if ( this._diceAreNotYetRolled() ) {
       this._rollDice();
       return;

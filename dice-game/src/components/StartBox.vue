@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p>Number of players: <input type="text" v-model="numPlayersInput" /></p>
-    <p>Number of rounds: <input type="text" v-model="numRoundsInput" /></p>
+    <p>Number of players: <input type="text" v-model="numPlayersInput" size="3"/></p>
+    <p>Number of rounds: <input type="text" v-model="numRoundsInput" size="3"/></p>
     <button v-on:click="tryNewGame( numPlayers, numRounds )" :class="['startButton']">Start Game</button>
   </div>
 </template>
