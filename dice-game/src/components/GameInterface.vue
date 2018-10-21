@@ -1,11 +1,11 @@
 <template>
-  <div v-bind:class="{gameInterface:true}">
-    <div v-bind:class="{topBar:true, gameInterfaceBlock:true}">
-      <RoundDisplay :round-number="this.currentRound" :total-rounds="this.totalRounds" v-bind:class="{topBarItem:true}"></RoundDisplay>
-      <Scoreboard :players="this.gamePlayers" :game-scores="this.gameScores" :game-totals="this.game.totals" v-bind:class="{topBarItem:true}"></Scoreboard>
-      <RulesButton :click-rules-button="this.clickRulesButton" v-bind:class="{topBarItem:true}"></RulesButton>
+  <div :class="['gameInterface']">
+    <div :class="['topBar', 'gameInterfaceBlock']">
+      <RoundDisplay :round-number="game.currentRound" :total-rounds="game.numRounds" :class="['topBarItem']"></RoundDisplay>
+      <Scoreboard :players="game.playerNames" :game-scores="game.scores" :game-totals="this.game.totals" :class="['topBarItem']"></Scoreboard>
+      <RulesButton :click-rules-button="this.clickRulesButton" :class="['topBarItem']"></RulesButton>
     </div>
-    <PlayBox :game-over="game.gameOver" :winners="game.winners" :winning-score="game.winningScore" :player-names="game.playerNames" :current-player="game.currentPlayer" :dice-data="diceData" :click-die="clickDie" :click-main-button="clickMainButton" class="playBoxComponent gameInterfaceBlock"></PlayBox>
+    <PlayBox :game-over="game.gameOver" :winners="game.winners" :winning-score="game.winningScore" :player-names="game.playerNames" :current-player="game.currentPlayer" :dice-data="game.diceData" :click-die="clickDie" :click-main-button="clickMainButton" class="playBoxComponent gameInterfaceBlock"></PlayBox>
   </div>
 
 </template>
@@ -26,27 +26,6 @@
             }
         },
         computed: {
-            currentRound: function() {
-                if ( this.game === null ) { return -1; }
-                return this.game.currentRound;
-            },
-            totalRounds: function() {
-                if ( this.game === null ) { return -1; }
-                return this.game.numRounds;
-            },
-            gameScores: function() {
-                if ( this.game === null ) { return []; }
-                return this.game.scores;
-            },
-            gamePlayers: function() {
-                if ( this.game === null ) { return []; }
-                return this.game.playerNames;
-            },
-            diceData: function() {
-                // console.log("Check this dice");
-                // console.log(this.game.dice);
-                return this.game.diceData;
-            }
         },
         methods: {
             clickRulesButton: function () {

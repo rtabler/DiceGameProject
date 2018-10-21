@@ -26,14 +26,17 @@ export default {
   box-sizing: border-box;
 }
 body {
-  background-color: darkkhaki;
+  background-color: #ffbe13;
   margin: 0px;
   padding: 0px;
   overflow: hidden;
 }
+button {
+  width: 300px;
+  height: 50px;
+}
 #app {
   font-family: 'Optima', sans-serif;
-  background-color: #2c3e50;
   margin: 0px;
   text-align: center;
 }

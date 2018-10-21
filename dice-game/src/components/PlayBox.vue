@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="{playBox:true}">
+  <div :class="['playBox']">
     <div v-if="gameOver">
       <h3>Game over!</h3>
       <p>{{this.winnersString}}</p>
@@ -9,7 +9,7 @@
       <Die v-for="(dieData,dieIndex) in diceData" :clickDie="clickDie" :die-data="dieData" :die-index="dieIndex"></Die>
     </div>
     <p>
-      <button v-on:click="clickMainButton()" v-bind:class="{mainButton:true, mainButtonClickable:mainButtonClickable, mainButtonDisabled:!mainButtonClickable}" v-bind:disabled="!mainButtonClickable">{{buttonText}}</button>
+      <button v-on:click="clickMainButton()" :class="{mainButton:true, mainButtonClickable:mainButtonClickable, mainButtonDisabled:!mainButtonClickable}" :disabled="!mainButtonClickable">{{buttonText}}</button>
     </p>
   </div>
 </template>
@@ -100,7 +100,7 @@
   width: 500px;
 }
 .mainButton {
-  width: 300px;
+  width: 340px;
   height: 50px;
   font-size: 1em;
 }

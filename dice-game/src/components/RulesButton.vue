@@ -1,5 +1,5 @@
 <template>
-  <button v-on:click="clickRulesButton()" v-bind:class="{rulesButton:true}">Game Rules</button>
+  <button v-on:click="clickRulesButton()" :class="{rulesButton:true}">Game Rules</button>
 </template>
 
 <script>
@@ -13,8 +13,9 @@
 
 <style scoped>
 .rulesButton {
+  border-radius: 25px;
   width: 100px;
   height: 100px;
-  border-radius: 25px;
+  font-size: 1em;
 }
 </style>

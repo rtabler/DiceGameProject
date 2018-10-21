@@ -1,6 +1,6 @@
 <template>
-  <button v-on:click="clickDie(dieIndex)" v-bind:class="{die:true}" v-bind:style="styleObject">
-    <img v-bind:class="{dieImg:true}" :src="imgFilename">
+  <button v-on:click="clickDie(dieIndex)" :disabled="dieNotYetRolled || dieLocked" :class="{die:true, dieLocked:dieLocked, dieWillLock:dieWillLock, dieUnlocked:dieUnlocked}">
+    <img :class="['dieImg']" :src="imgFilename">
   </button>
 </template>
 
@@ -15,15 +15,10 @@
             }
         },
         computed: {
-            styleObject: function() {
-                let colorStr = 'white';
-                if ( this.dieData.dieState === DieState.locked ) { colorStr = 'grey'; }
-                else if ( this.dieData.dieState === DieState.willLock ) { colorStr = 'red'; }
-                else if ( this.dieData.dieState === DieState.unlocked ) { colorStr = 'lime'; }
-                return {
-                    backgroundColor: colorStr
-                }
-            },
+            dieLocked: function() { return this.dieData.dieState === DieState.locked; },
+            dieWillLock: function() { return this.dieData.dieState === DieState.willLock; },
+            dieUnlocked: function() { return this.dieData.dieState === DieState.unlocked; },
+            dieNotYetRolled: function() { return this.dieData.dieState === DieState.notYetRolled; },
             imgFilename: function() {
                 let c = '';
                 if ( this.dieData.dieNumber === null ) { c = '_'; }
@@ -43,13 +38,25 @@
 
 <style scoped>
 .die {
-  background-color: pink;
+  background-color: transparent;
   display: inline-block;
-  width: 64px;
-  height: 64px;
   margin: 5px;
+  border-width: 0px;
+  border-radius: 13px;
+  width: 60px;
+  height: 60px;
+  padding: 0px;
+}
+.dieLocked {
+  background-color: grey;
+}
+.dieWillLock {
+  background-color: red;
+}
+.dieUnlocked {
+  background-color: lime;
 }
 .dieImg {
-  margin: 3px;
+  margin: 4px;
 }
 </style>

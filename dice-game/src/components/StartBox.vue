@@ -2,7 +2,7 @@
   <div>
     <p>Number of players: <input type="text" v-model="numPlayersInput" /></p>
     <p>Number of rounds: <input type="text" v-model="numRoundsInput" /></p>
-    <button v-on:click="tryNewGame( numPlayers, numRounds )">Start Game</button>
+    <button v-on:click="tryNewGame( numPlayers, numRounds )" :class="['startButton']">Start Game</button>
   </div>
 </template>
 
@@ -49,5 +49,7 @@
 </script>
 
 <style scoped>
-
+.startButton {
+  font-size: 1em;
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div v-bind:style="{ backgroundColor: 'orange', border: '0.1px solid rgba(0,0,0,0)', height: '100vh', position: 'relative' }">
-    <div v-if="overlay" v-on:click="clickOffPanel" v-bind:class="{overlayItem:true, overlayPanelArea:true}">
-      <div v-if="overlay" v-on:click="e => e.stopImmediatePropagation()" v-bind:class="{overlayPanel:true, rulesText:true}">
-        <h2 v-bind:style="{ textAlign: 'center' }">Dice Game rules:</h2>
+  <div :style="{ border: '0.02px solid transparent' }">
+    <div v-if="overlay" v-on:click="clickOffPanel" :class="['overlayItem', 'overlayPanelArea']">
+      <div v-if="overlay" v-on:click="e => e.stopImmediatePropagation()" :class="['overlayPanel', 'rulesText']">
+        <h2 :style="{ textAlign: 'center' }">Dice Game rules:</h2>
         <p>In this game players roll dice and try to collect the lowest score. A 4 counts as zero, all other numbers count as face value. A player’s score is the total spots showing on the dice when she finishes her turn (excluding fours because they’re zero). The object of the game is to get the lowest score possible.</p>
         <p>The game is played as follows between 4 players:</p>
         <ul>
@@ -12,9 +12,10 @@
           <li>Once each player has rolled the player who scored the lowest wins.</li>
           <li>Repeat for three more rounds in succession so that the next person starts rolling first (at the end each player will have started).</li>
         </ul>
+        <p>After all four rounds have been completed the player with the lowest combined score wins.</p>
       </div>
     </div>
-    <div v-if="overlay" v-bind:class="{overlayItem:true, overlayShadow:true}">
+    <div v-if="overlay" :class="['overlayItem', 'overlayShadow']">
     </div>
     <Title></Title>
     <StartScreen v-if="( this.game === null )" :defaults="gameSettingsDefaults" :new-game="this.createNewDiceGame"></StartScreen>
