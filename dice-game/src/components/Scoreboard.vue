@@ -2,17 +2,19 @@
   <table :class="['scoreboard']">
     <tr :class="['headerRow']">
       <th :class="['headerCell']">Scores</th>
-      <th v-for="playerName in playerNames" :class="['headerCell','playerCell']">{{ playerName }}</th>
+      <th v-for="(playerName,playerNumber) in playerNames" :key="playerNumber"
+          :class="['headerCell','playerCell']">{{ playerName }}</th>
     </tr>
-    <tr v-for="(thisRoundScores,roundNumber) in scores"
+    <tr v-for="(thisRoundScores,roundNumber) in scores" :key="roundNumber"
         :class="{evenRow:(roundNumber%2===0), oddRow:(roundNumber%2===1)}">
       <td :class="['roundCell']">Round {{roundNumber+1}}</td>
-      <td v-for="(playerScore,playerNumber) in thisRoundScores"
+      <td v-for="(playerScore,playerNumber) in thisRoundScores" :key="playerNumber"
           :class="{playerCell:true,roundWinningCell:isRoundWinningCell(roundNumber,playerNumber)}">{{ playerScore }}</td>
     </tr>
     <tr>
       <th :class="['footerCell']">Total</th>
-      <th v-for="playerTotal in this.gameTotals" :class="['footerCell']">{{ playerTotal }}</th>
+      <th v-for="(playerTotal,playerNumber) in this.gameTotals" :key="playerNumber"
+          :class="['footerCell']">{{ playerTotal }}</th>
     </tr>
   </table>
 </template>

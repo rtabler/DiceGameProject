@@ -100,7 +100,7 @@ class GameModel {
       let thisRoundScores = this.scores[ this.currentRound ];
       let thisRoundWinners = [];
       let thisRoundWinningScore = this.numPlayers * 6 + 1;
-      thisRoundScores.forEach( function( score, player ){
+      thisRoundScores.forEach( function( score, player ) {
           if ( score < thisRoundWinningScore ) {
               thisRoundWinningScore = score;
               thisRoundWinners = [ player ];
@@ -150,7 +150,6 @@ class GameModel {
 
     this.currentPlayer = ( this.currentPlayer + 1 ) % this.numPlayers;
     if ( this.currentPlayer === this.startingPlayer ) {
-
       this._calculateRoundWinners();
 
       if ( this.currentRound + 1 < this.numRounds ) {

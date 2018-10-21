@@ -22,7 +22,6 @@
     import Scoreboard from "./Scoreboard";
     import RulesButton from "./RulesButton";
     import PlayBox from "./PlayBox";
-    import GameModel from "../GameModel";
     export default {
         name: "GameInterface",
         props: [ "setOverlay", "game", "resetGame" ],

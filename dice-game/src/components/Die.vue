@@ -23,13 +23,21 @@
             dieIs4o: function() { return this.dieData.dieNumber === 4; },
             imgFilename: function() {
                 let c = '';
-                if ( this.dieData.dieNumber === null ) { c = '_'; }
-                else if ( this.dieData.dieNumber === 1 ) { c = '1'; }
-                else if ( this.dieData.dieNumber === 2 ) { c = '2'; }
-                else if ( this.dieData.dieNumber === 3 ) { c = '3'; }
-                else if ( this.dieData.dieNumber === 4 ) { c = '4'; }
-                else if ( this.dieData.dieNumber === 5 ) { c = '5'; }
-                else if ( this.dieData.dieNumber === 6 ) { c = '6'; }
+                if ( this.dieData.dieNumber === null ) {
+                    c = '_';
+                } else if ( this.dieData.dieNumber === 1 ) {
+                    c = '1';
+                } else if ( this.dieData.dieNumber === 2 ) {
+                    c = '2';
+                } else if ( this.dieData.dieNumber === 3 ) {
+                    c = '3';
+                } else if ( this.dieData.dieNumber === 4 ) {
+                    c = '4';
+                } else if ( this.dieData.dieNumber === 5 ) {
+                    c = '5';
+                } else if ( this.dieData.dieNumber === 6 ) {
+                    c = '6';
+                }
                 if ( this.dieLocked ) { c += 'g'; }
                 return require( "../assets/dice"+c+".svg" );
             },

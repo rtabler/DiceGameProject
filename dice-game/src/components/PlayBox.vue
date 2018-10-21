@@ -10,11 +10,11 @@
     </div>
     <div v-else>
       <h3>{{playerNames[currentPlayer]}}'s turn:</h3>
-      <Die v-for="(dieData,dieIndex) in diceData" :clickDie="clickDie" :die-data="dieData" :die-index="dieIndex"></Die>
+      <Die v-for="(dieData,dieIndex) in diceData" :key="dieIndex" :clickDie="clickDie" :die-data="dieData" :die-index="dieIndex"></Die>
     </div>
     <p>
       <button v-on:click="clickMainButton()"
-              :class="['mainButton']" :disabled="!mainButtonClickable">{{buttonText}}</button>
+              :class="['mainButton']" :disabled="!mainButtonClickable">{{getButtonText()}}</button>
     </p>
   </div>
 </template>
@@ -32,8 +32,8 @@
                 mainButtonClickable: true
             }
         },
-        computed: {
-            buttonText: function() {
+        methods: {
+            getButtonText: function() {
                 let notYetRolled = false;
                 let numToKeep = 0;
                 let numToRoll = 0;
@@ -43,6 +43,7 @@
                     return "New game";
                 }
                 if ( this.betweenRounds ) {
+                    this.mainButtonClickable = true;
                     return "Next round";
                 }
                 for ( let i=0; i<this.diceData.length; i++ ) {
@@ -68,16 +69,15 @@
                 }
                 if ( numToKeep < 1 ) {
                     this.mainButtonClickable = false;
-                    return "Please choose at least 1 die to keep." }
+                    return "Please choose at least 1 die to keep."
+                }
                 if ( numToKeep === this.diceData.length ) {
                     this.mainButtonClickable = true;
                     return "Keep all "+this.diceData.length+" dice";
                 }
                 this.mainButtonClickable = true;
                 return "Keep "+numToKeep+" dice"+(numToRoll>0 ? ", re-roll "+(numToRoll)+" dice" : "");
-            }
-        },
-        methods: {
+            },
             winnersString: function( winnersArray ) {
                 let winnerStr = "";
                 if ( winnersArray.length <= 0 ) {
@@ -95,7 +95,7 @@
                     winnerStr += winnersStr;
                 }
                 return winnerStr;
-            },
+            }
         }
     }
 </script>
